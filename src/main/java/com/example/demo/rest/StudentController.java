@@ -3,8 +3,6 @@ package com.example.demo.rest;
 
 import com.example.demo.entity.Student;
 import jakarta.annotation.PostConstruct;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -21,24 +19,6 @@ public class StudentController {
         studentsList.add(new Student("Ala", "Nowak"));
         studentsList.add(new Student("Ola", "Nowak"));
         studentsList.add(new Student("Adam", "Nowak"));
-    }
-
-    @ExceptionHandler
-    public ResponseEntity<StudentErrorResponse> handleException(StudentNotFoundException ex){
-        StudentErrorResponse response = new StudentErrorResponse();
-        response.setStatus(HttpStatus.NOT_FOUND.value());
-        response.setMessage(ex.getMessage());
-        response.setTimestamp(System.currentTimeMillis());
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler
-    public ResponseEntity<StudentErrorResponse> handleException(Exception ex) {
-        StudentErrorResponse response = new StudentErrorResponse();
-        response.setStatus(HttpStatus.BAD_REQUEST.value());
-        response.setMessage(ex.getMessage());
-        response.setTimestamp(System.currentTimeMillis());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/students")
